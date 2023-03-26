@@ -14,23 +14,27 @@ model = initializePredectionModel()  #for cnn mode
 
 
 
-## 1. Image prep
+## 1. Image prep, @Tarryn Collins
 
 
 
-## 2. Find contours
+## 2. Find contours, @Tarryn Collins
 
 
-## 3. Biggest contour = soduko
+
+## 3. Biggest contour = soduko, @Christoph Snell
 
 
-  ## 4. Find digits
+
+  ## 4. Find digits, @Shimi Philemon Mashishi
   
   
-  ## 5. Solve
+  
+  ## 5. Solve, @Kyle Kumm
   
   
-  ## 6. Display solution
+  
+  ## 6. Display solution, @Randall Traz Mocke
 
 
 

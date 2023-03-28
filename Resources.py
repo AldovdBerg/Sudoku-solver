@@ -14,6 +14,9 @@ def preProcess(img):
     #Converting image to gray scale
     blurImage = cv2.GaussianBlur(grayImage, (5, 5), 1)
     #Adding gaussian blur
+    tresholdImg = cv2.adaptiveThreshold(blurImage, 255, 1, 1, 11, 2)
+    #Applying adaptive treshold
+    return tresholdImg
 
   
   

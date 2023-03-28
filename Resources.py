@@ -10,6 +10,10 @@ def intializePredectionModel():
   
 ## 1. Process image,, @Tarryn Collins
 def preProcess(img):
+    grayImage = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    #Converting image to gray scale
+    blurImage = cv2.GaussianBlur(grayImage, (5, 5), 1)
+    #Adding gaussian blur
 
   
   

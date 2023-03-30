@@ -1,4 +1,4 @@
-import cv3
+import cv2
 import numphy as np
 from tensorflow.keras.models import load_model
 

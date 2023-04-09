@@ -39,9 +39,9 @@ if biggest.size != 0:
     cv2.drawContours(imageBigContour, biggest, -1, (0, 0, 255), 25) # DRAW THE BIGGEST CONTOUR
     points1 = np.float32(biggest) # PREPARE POINTS FOR WARP
     points2 = np.float32([[0, 0],[imgWidth, 0], [0, imgHeight],[imgWidth, imgHeight]]) # PREPARE POINTS FOR WARP
-    matrix = cv2.getPerspectiveTransform(points1, points2) # GER
-    imageWarpColored = cv2.warpPerspective(img, matrix, (imgWidth, imgHeight))
-    imageDetectedDigits = imgBlank.copy()
+    theMatrix = cv2.getPerspectiveTransform(points1, points2) # GER
+    imageWarpColored = cv2.warpPerspective(image, theMatrix, (imgWidth, imgHeight))
+    imageDetectedDigits = blankImg.copy()
     imageWarpColored = cv2.cvtColor(imageWarpColored,cv2.COLOR_BGR2GRAY)
 
 

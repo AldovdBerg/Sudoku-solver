@@ -50,7 +50,17 @@ if biggest.size != 0:
   
   
   ## 5. Solve, @Kyle Kumm
-  
+  board = np.array_split(numbers,9) # Numbers variable coming from #4 #
+    try:
+        Solver.solve(board)
+    except:
+        pass
+    flatList = []
+    for sublist in board:
+        for item in sublist:
+            flatList.append(item)
+    solvedNumbers =flatList*posArray # posArray coming from #4 #
+    imgSolvedDigits= displayNumbers(imgSolvedDigits,solvedNumbers)
   
   
   ## 6. Display solution, @Randall Traz Mocke

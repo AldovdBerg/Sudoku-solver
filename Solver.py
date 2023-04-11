@@ -64,6 +64,10 @@ def display(block):
    
 ## @Kyle Kumm
 def findEmpty(block):
-
+    for i in range(len(block)):
+            for j in range(len(block[0])):
+                if block[i][j] == 0:
+                    return (i, j)  # row, col
+        return None
 
 

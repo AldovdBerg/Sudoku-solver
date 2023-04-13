@@ -32,8 +32,14 @@ def biggestCountour(countours):
 
 ## 4. Split into 81 images, @Obelya Fourie
 def splitBoxes(img):
-               
-           
+    rows = np.vsplit(img,9)
+    boxes = []
+    for i in rows:
+        columns = np.hsplit(i,9)
+        for box in columns:
+            boxes.append(box)
+    return boxes
+
 
 ## 5. Image predictions, @Johan Michael Lourens
 def getPrediction(boxes, model):
@@ -41,8 +47,15 @@ def getPrediction(boxes, model):
   
 
 ## 6.  Dislpay solution, @Obelya Fourie
-def displayNumbers(img, numbers, color = (0,255,0)):
-  
+def displayNumbers(img,nums,color = (0,255,0)):
+    secW = int(img.shape[1]/9)
+    secH = int(img.shape[0]/9)
+    for i in range (0,9):
+        for j in range (0,9):
+            if nums[(j*9)+i] != 0 :
+                 cv2.putText(img, str(nums[(j*9)+i]),
+                               (i*secW+int(secW/2)-10, int((j+0.8)*secH)), cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, color, 2, cv2.LINE_AA)
+    return img
   
 
 ## 7. Grid drwaing for warp, @Randall Traz Mocke

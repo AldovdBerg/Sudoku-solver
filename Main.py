@@ -46,7 +46,7 @@ if biggest.size != 0:
 
 
   ## 4. Find digits, @Shimi Philemon Mashishi
-  
+  #imgageDetectedDigits #Use Instead of imgDetectedDigits, i used it later on in the code (Traz)
   
   
   ## 5. Solve, @Kyle Kumm
@@ -64,6 +64,25 @@ if biggest.size != 0:
   
   
   ## 6. Display solution, @Randall Traz Mocke
+      #only temporary decoding, can still update and improve
+    #preparing the points for the warp both point 1 and 2
+    points2 = np.float32(biggest) # PREPARE POINTS FOR WARP
+    points1 =  np.float32([[0, 0],[widthImg, 0], [0, heightImg],[widthImg, heightImg]])
+    #Transforming the matrix with the points
+    theMatrix = cv2.getPerspectiveTransform(points1,points2)
+    #Copying the image and adding the digits to imageInvertWarpColored
+    imageInvertWarpColored = image.copy()
+    imageInvertWarpColored = cv2.warpPerspective(imgSolvedDigits, theMatrix, (imgWidth, imgHeight))
+    invertPerspective = cv2.addWeighted(imageInvertWarpColored, 1, image, 0.5, 1)
+    #drawing the digits onto the image
+    imgageDetectedDigits = drawGrid(image)
+    imgSolvedDigits = drawGrid(imgSolvedDigits)
+    #outputing the solved sodoku
+    cv2.imshow('Output', invertPerspective)
 
+else:
+    print("No Sudoku Puzzle Found!")
+    
+cv2.waitKey(0)
 
 

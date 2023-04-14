@@ -22,11 +22,31 @@ def preProcess(img):
   
 ## 2. Warp points correctly, #Christoph Snell
 def reorder(points):
+    points = points.reshape((4, 2))
+    pointsNew = np.zeros((4, 1, 2), dtype=np.int32)
+    add = points.sum(1)
+    pointsNew[0] = points[np.argmin(add)]
+    pointsNew[3] =points[np.argmax(add)]
+    diff = np.diff(points, axis=1)
+    pointsNew[1] =points[np.argmin(diff)]
+    pointsNew[2] = points[np.argmax(diff)]
+    return pointsNew
   
   
 
 ## 3. Find biggest countour = soduko, @Christoph Snell
 def biggestCountour(countours):
+        biggest = np.array([])
+    max_area = 0
+    for i in contours:
+        area = cv2.contourArea(i)
+        if area > 50:
+            peri = cv2.arcLength(i, True)
+            approx = cv2.approxPolyDP(i, 0.02 * peri, True)
+            if area > max_area and len(approx) == 4:
+                biggest = approx
+                max_area = area
+    return biggest,max_area
   
 
 

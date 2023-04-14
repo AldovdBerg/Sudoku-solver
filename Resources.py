@@ -73,7 +73,7 @@ def getPrediction(boxes, model):
         img = img.reshape(1, 28, 28, 1)
         ## GET PREDICTION
         predictions = model.predict(img)
-        classIndex = model.predict_classes(img)
+        classIndex = classIndex = np.argmax(model.predict(img), axis=-1) #<--- Had to edit this as predict_classes was removed from the libraries
         probabilityValue = np.amax(predictions)
         ## SAVE TO RESULT
         if probabilityValue > 0.8:

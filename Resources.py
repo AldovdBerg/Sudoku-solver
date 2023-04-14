@@ -96,6 +96,17 @@ def displayNumbers(img,nums,color = (0,255,0)):
   
 
 ## 7. Grid drwaing for warp, @Randall Traz Mocke
+#must decode abit further
 def drawGrid(img):
-  
+    #getting the sections width and their heights
+    sectionWidth = int(img.shape[1] / 9)
+    sectionHeight = int(img.shape[0] / 9)
+    for i in range(0, 9):
+        point1 = (0, sectionHeight * i)
+        point2 = (img.shape[1], sectionHeight * i)
+        point3 = (sectionWidth * i, 0)
+        point4 = (sectionHeight * i, img.shape[0])
+        cv2.line(img, point1, point2, (255, 255, 0), 2)
+        cv2.line(img, point3, point4, (255, 255, 0), 2)
+    return img
   

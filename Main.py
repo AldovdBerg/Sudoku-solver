@@ -46,6 +46,13 @@ if biggest.size != 0:
 
 
   ## 4. Find digits, @Shimi Philemon Mashishi
+    imageSolvDigits = blankImg.copy()
+    numbers = getPredection(boxes, model)
+    boxes = splitBoxes(imageWarpColored)
+    imgageDetectedDigits = displayNumbers(imgageDetectedDigits, numbers, color = (255, 0, 255))
+    numbers = np.asarray(numbers)
+    posArray = np.where(numbers > 0, 0, 1)
+
   #imgageDetectedDigits #Use Instead of imgDetectedDigits, i used it later on in the code (Traz)
   
   

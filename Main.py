@@ -7,9 +7,9 @@ import argparse
 imgHeight = 450
 imgWidth = 450
 ap = argparse.ArgumentParser()
-ap.add.argument("-i", "--image", default = 'recorces/1.jpg', help = "Path to input image")
+ap.add_argument("-i", "--image", default = 'Folder/1.jpg', help = "Path to input image")
 args = vars(ap.parse_args())
-model = initializePredectionModel()  #for cnn mode
+model = initializePredectionModel()  #for cnn model
 ####
 
 
@@ -29,11 +29,11 @@ imageContours = image.copy()
 imageBigContour = image.copy()
 contours, hierarchy = cv2.findContours(tresholdImg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 #Find contours
-cv2.contourDrawing(imageContours, contours, -1, (0, 255, 0),3)
+cv2.drawContours(imageContours, contours, -1, (0, 255, 0),3)
 
 
 ## 3. Biggest contour = soduko, @Christoph Snell
-biggest, maxArea = biggestContour(contours) 
+biggest, areaMax = biggestContour(contours) 
 if biggest.size != 0:
     biggest = reorder(biggest)
     cv2.drawContours(imageBigContour, biggest, -1, (0, 0, 255), 25) # DRAW THE BIGGEST CONTOUR
@@ -46,18 +46,18 @@ if biggest.size != 0:
 
 
   ## 4. Find digits, @Shimi Philemon Mashishi
-    imageSolvDigits = blankImg.copy()
-    numbers = getPredection(boxes, model)
-    boxes = splitBoxes(imageWarpColored)
-    imgageDetectedDigits = displayNumbers(imgageDetectedDigits, numbers, color = (255, 0, 255))
-    numbers = np.asarray(numbers)
-    posArray = np.where(numbers > 0, 0, 1)
+    imageSolveDigits = blankImg.copy()
+    box = splitBoxes(imageWarpColored)
+    num = getPredection(box, model)
+    imageDetectedDigits = displayNumbers(imageDetectedDigits, num, color = (255, 0, 255))
+    num = np.asarray(num)
+    arrayPos = np.where(num > 0, 0, 1)
 
-  #imgageDetectedDigits #Use Instead of imgDetectedDigits, i used it later on in the code (Traz)
+
   
   
   ## 5. Solve, @Kyle Kumm
-  board = np.array_split(numbers,9) # Numbers variable coming from #4 #
+  board = np.array_split(num,9) # Numbers variable coming from #4 #
     try:
         Solver.solve(board)
     except:
@@ -66,7 +66,7 @@ if biggest.size != 0:
     for sublist in board:
         for item in sublist:
             flatList.append(item)
-    solvedNumbers =flatList*posArray # posArray coming from #4 #
+    solvedNumbers =flatList*arrayPos # arrayPos coming from #4 #
     imgSolvedDigits= displayNumbers(imgSolvedDigits,solvedNumbers)
   
   
@@ -82,7 +82,7 @@ if biggest.size != 0:
     imageInvertWarpColored = cv2.warpPerspective(imgSolvedDigits, theMatrix, (imgWidth, imgHeight))
     invertPerspective = cv2.addWeighted(imageInvertWarpColored, 1, image, 0.5, 1)
     #drawing the digits onto the image
-    imgageDetectedDigits = drawGrid(image)
+    imageDetectedDigits = drawGrid(image)
     imgSolvedDigits = drawGrid(imgSolvedDigits)
     #outputing the solved sodoku
     cv2.imshow('Output', invertPerspective)

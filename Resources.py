@@ -35,13 +35,13 @@ def reorder(points):
   
 
 ## 3. Find biggest countour = soduko, @Christoph Snell
-def biggestCountour(countours):
+def biggestContour(countours):
         biggest = np.array([])
     max_area = 0
-    for i in contours:
+    for r in contours:
         area = cv2.contourArea(i)
         if area > 50:
-            peri = cv2.arcLength(i, True)
+            peri = cv2.arcLength(r, True)
             approx = cv2.approxPolyDP(i, 0.02 * peri, True)
             if area > max_area and len(approx) == 4:
                 biggest = approx
@@ -73,7 +73,7 @@ def getPrediction(boxes, model):
         img = img.reshape(1, 28, 28, 1)
         ## GET PREDICTION
         predictions = model.predict(img)
-        classIndex = classIndex = np.argmax(model.predict(img), axis=-1) #<--- Had to edit this as predict_classes was removed from the libraries
+        classIndex = np.argmax(model.predict(img), axis=-1) #<--- Had to edit this as predict_classes was removed from the libraries
         probabilityValue = np.amax(predictions)
         ## SAVE TO RESULT
         if probabilityValue > 0.8:
@@ -87,11 +87,11 @@ def getPrediction(boxes, model):
 def displayNumbers(img,nums,color = (0,255,0)):
     secW = int(img.shape[1]/9)
     secH = int(img.shape[0]/9)
-    for i in range (0,9):
-        for j in range (0,9):
-            if nums[(j*9)+i] != 0 :
-                 cv2.putText(img, str(nums[(j*9)+i]),
-                               (i*secW+int(secW/2)-10, int((j+0.8)*secH)), cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, color, 2, cv2.LINE_AA)
+    for m in range (0,9):
+        for n in range (0,9):
+            if nums[(n*9)+m] != 0 :
+                 cv2.putText(img, str(nums[(n*9)+m]),
+                               (m*secW+int(secW/2)-10, int((n+0.8)*secH)), cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, color, 2, cv2.LINE_AA)
     return img
   
 

@@ -7,9 +7,9 @@ import argparse
 imgHeight = 450
 imgWidth = 450
 ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", default = 'Folder/1.jpg', help = "Path to input image")
+ap.add_argument("-i", "--image", default = 'Resources/1.jpg', help = "Path to input image")
 args = vars(ap.parse_args())
-model = initializePredectionModel()  #for cnn model
+model = intializePredectionModel()  #for cnn model
 ####
 
 
@@ -33,7 +33,7 @@ cv2.drawContours(imageContours, contours, -1, (0, 255, 0),3)
 
 
 ## 3. Biggest contour = soduko, @Christoph Snell
-biggest, areaMax = biggestContour(contours) 
+biggest, areaMax = biggestContour(contours)
 if biggest.size != 0:
     biggest = reorder(biggest)
     cv2.drawContours(imageBigContour, biggest, -1, (0, 0, 255), 25) # DRAW THE BIGGEST CONTOUR
@@ -45,19 +45,19 @@ if biggest.size != 0:
     imageWarpColored = cv2.cvtColor(imageWarpColored,cv2.COLOR_BGR2GRAY)
 
 
-  ## 4. Find digits, @Shimi Philemon Mashishi
+    ## 4. Find digits, @Shimi Philemon Mashishi
     imageSolveDigits = blankImg.copy()
     box = splitBoxes(imageWarpColored)
-    num = getPredection(box, model)
+    num = getPrediction(box, model)
     imageDetectedDigits = displayNumbers(imageDetectedDigits, num, color = (255, 0, 255))
     num = np.asarray(num)
     arrayPos = np.where(num > 0, 0, 1)
 
 
-  
-  
-  ## 5. Solve, @Kyle Kumm
-  board = np.array_split(num,9) # Numbers variable coming from #4 #
+
+
+    ## 5. Solve, @Kyle Kumm
+    board = np.array_split(num,9) ##Numbers variable coming from #4
     try:
         Solver.solve(board)
     except:
@@ -67,14 +67,14 @@ if biggest.size != 0:
         for item in sublist:
             flatList.append(item)
     solvedNumbers =flatList*arrayPos # arrayPos coming from #4 #
-    imgSolvedDigits= displayNumbers(imgSolvedDigits,solvedNumbers)
-  
-  
-  ## 6. Display solution, @Randall Traz Mocke
-      #only temporary decoding, can still update and improve
+    imgSolvedDigits= displayNumbers(imageSolveDigits,solvedNumbers)
+
+
+    ## 6. Display solution, @Randall Traz Mocke
+    #only temporary decoding, can still update and improve
     #preparing the points for the warp both point 1 and 2
     points2 = np.float32(biggest) # PREPARE POINTS FOR WARP
-    points1 =  np.float32([[0, 0],[widthImg, 0], [0, heightImg],[widthImg, heightImg]])
+    points1 =  np.float32([[0, 0],[imgWidth, 0], [0, imgHeight],[imgWidth, imgHeight]])
     #Transforming the matrix with the points
     theMatrix = cv2.getPerspectiveTransform(points1,points2)
     #Copying the image and adding the digits to imageInvertWarpColored
@@ -89,7 +89,7 @@ if biggest.size != 0:
 
 else:
     print("No Sudoku Puzzle Found!")
-    
+
 cv2.waitKey(0)
 
 

@@ -1,4 +1,4 @@
-import cv2
+import cv2 #install opencv for camera to work
 from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import Button
@@ -91,7 +91,7 @@ class MainApp(App):
             self.camaraClick.background_color=(0.24,0.7,0.44,1)
         #if camera on turn off
         else:
-            self.cameraObject.export_to_png('./selfie.png')
+            self.cameraObject.export_to_png('./puzzle.png')
             self.cameraObject.play=False
             self.take=0
             btnSolve.disabled=False

@@ -20,3 +20,5 @@ Install kivy package used in main
 Install Tensorflow package used in Resources
 
 Make sure Resouches file is included with .h5 Tensorflow model
+
+Run main.py to start Sudoku Solver
